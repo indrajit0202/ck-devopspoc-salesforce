@@ -1,0 +1,30 @@
+
+ [12:47:27.39] Execution of the command sfdmu:run has been started.
+
+ LOADING AND VALIDATING THE EXPORT.JSON SCRIPT ...
+
+ OBJECT SET #1 STARTED
+
+ {
+   "Running Plugin version": "4.32.2"
+}
+ {
+   "Running Add-On API version": "1.5.0"
+}
+
+ [12:47:27.69] Loading Core Add-On Module declarations ...
+ [12:47:27.108] Connecting to the devopspoc_dev using SFDX force:org:display ...
+
+ [12:48:23.547] [ERROR] Execution of the command has aborted due to unexpected error: Command failed: sfdx force:org:display --json --targetusername devopspoc_dev.
+ [12:48:23.560] [ERROR] [STACK TRACE] Error: Command failed: sfdx force:org:display --json --targetusername devopspoc_dev
+    at checkExecSyncError (node:child_process:890:11)
+    at execSync (node:child_process:962:15)
+    at Common.execSfdx (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/components/common_components/common.js:196:49)
+    at ScriptOrg._setupConnection (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/models/script_models/scriptOrg.js:123:53)
+    at ScriptOrg.setupAsync (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/models/script_models/scriptOrg.js:52:20)
+    at Script.setupAsync (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/models/script_models/script.js:215:30)
+    at async RunCommand.setupObjectSetAsync (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/commands_processors/runCommand.js:71:9)
+    at async RunCommandExecutor.execute (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/modules/commands_processors/runCommandExecutor.js:39:17)
+    at async Run.run (/Users/kiranmoy/.local/share/sf/node_modules/sfdmu/lib/commands/sfdmu/run.js:20:9)
+ [12:48:23.562] [ERROR] Execution of the command sfdmu:run has been completed. Exit code 1 (COMMAND_UNEXPECTED_ERROR).
+ [12:48:23.563] Total time elapsed: 00h 00m 56s 508ms .

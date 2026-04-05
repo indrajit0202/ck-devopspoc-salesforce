@@ -1,0 +1,97 @@
+# This GitHub Actions workflow facilitates the execution of deployments upon merging into environment-specific branches.
+name: deployment-workflow
+
+on:
+  # This workflow contains a single job called "pr-validation"
+  workflow_call:
+    inputs:
+      # Specifying the required inputs for this reusable workflow
+      WORKFLOW_TYPE:
+        required: true
+        type: string
+      AUTH_ORG_ALIAS:
+        required: true
+        type: string
+
+    # Specifying the required secrets for this reusable workflow
+    secrets:
+      SECRET_URL_PATH:
+        required: true
+      DOCKER_HUB_UN:
+        required: true
+      DOCKER_HUB_PW:
+        required: true
+      PROD_ORG_DOMAIN:
+        required: false
+
+jobs:
+  deployment:
+    name: ${{ github.event.push.head.ref }}
+    runs-on: ubuntu-latest
+
+    # Setting some environment variables so that it can be utilized in upcoming shell scripts
+    env:
+      WORKFLOW_TYPE: ${{ inputs.WORKFLOW_TYPE }}
+      AUTH_ORG_ALIAS: ${{ inputs.AUTH_ORG_ALIAS }}
+      SECRET_URL_PATH: ${{ secrets.SECRET_URL_PATH }}
+      PROD_ORG_DOMAIN: ${{ secrets.PROD_ORG_DOMAIN }}
+      SFDX_DISABLE_DNS_CHECK: true
+      FORCE_SHOW_SPINNER: true
+
+    # Docker container load
+    container:
+      image: indrajitck/sfdx-cli-image
+      credentials:
+        username: ${{ secrets.DOCKER_HUB_UN }}
+        password: ${{ secrets.DOCKER_HUB_PW }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job.
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # Authenticate with the Org
+      - name: Salesforce Authentication
+        run: chmod +x ./cicd-utils/scripts-util/authenticateorg.sh && ./cicd-utils/scripts-util/authenticateorg.sh
+        shell: bash
+
+      # Generate Delta Package
+      - name: Delta Package Generation
+        run: chmod +x ./cicd-utils/scripts-util/generatedeltapkg.sh && ./cicd-utils/scripts-util/generatedeltapkg.sh
+        shell: bash
+
+      # Dynamically generate test class list
+      - name: Test Class List Generation
+        run: chmod +x ./cicd-utils/scripts-util/generatetestclass.sh && bash cicd-utils/scripts-util/generatetestclass.sh
+        shell: bash
+
+      # Validate the components & test class coverage
+      - name: Component Validation
+        run: chmod +x ./cicd-utils/scripts-util/validateComponents.sh && ./cicd-utils/scripts-util/validateComponents.sh
+        shell: bash
+
+      # Quick deploy if validation is success
+      - name: Quick Deploy
+        run: chmod +x ./cicd-utils/scripts-util/quickdeploy.sh && ./cicd-utils/scripts-util/quickdeploy.sh
+        shell: bash
+
+      # Metadata Components Deploy
+      - name: SFDMU Data Deploy
+        run: chmod +x ./cicd-utils/scripts-util/sfdmu.sh && ./cicd-utils/scripts-util/sfdmu.sh
+        shell: bash
+
+      # Skuid Pages Deploy
+      - name: Deploy Skuid Pages
+        run: chmod +x ./cicd-utils/scripts-util/skuidpush.sh && ./cicd-utils/scripts-util/skuidpush.sh
+        shell: bash
+
+      # Upload Artifacts
+      - name: Publish Results (Uplaod Artifacts)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Build-Report
+          path: pipeline-artifacts

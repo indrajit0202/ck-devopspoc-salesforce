@@ -1,0 +1,121 @@
+
+ [12:24:37.899] Execution of the command sfdmu:run has been started.
+
+ LOADING AND VALIDATING THE EXPORT.JSON SCRIPT ...
+
+ OBJECT SET #1 STARTED
+
+ {
+   "Running Plugin version": "4.32.2"
+}
+ {
+   "Running Add-On API version": "1.5.0"
+}
+
+ [12:24:37.910] Loading Core Add-On Module declarations ...
+ [12:24:37.949] Connecting to the devopspoc_dev using SFDX force:org:display ...
+ [12:24:52.348] Successfully connected to the devopspoc_dev.
+ {
+   "Source": "devopspoc_dev.",
+   "Target": "csvfile.",
+   "Package script": "/Users/kiranmoy/Desktop/CK/EngineeringExcellence/DevOps/SalesforceDevOpsBoilerplate/kp-salesforce-devops-poc/cicd-utils/sfdmu/firstrun/export.json."
+}
+
+ GETTING AND ANALYSING OBJECT METADATA ...
+ [12:24:53.577] Processing the object Account ...
+ [12:24:53.577] Fetching metadata of the Account (Source) ...
+ [12:24:54.804] Fetching metadata of the Group (Source) ...
+ [12:24:55.84] Processing the object Account ...
+
+ PREPARING DATA MIGRATION JOB ...
+ [12:24:55.87] Building the migration strategy ...
+ {
+   "Order of objects to query": "Account"
+}
+ {
+   "Order of objects to delete": "Account"
+}
+ {
+   "Order of objects to update": "Account"
+}
+ [12:24:55.90] Preparing of the data migration job has been completed.
+
+ ANALYSING DATA...
+ [12:24:55.306] {Account} The original query string of this object is returning 1 records from the Source org.
+
+ TRIGGERING ADD-ON EVENTS ...
+ [12:24:55.308] No Add-On modules found to run.
+
+ [12:24:55.309] Ready to process the data.
+
+ DELETING OLD DATA FROM THE TARGET ...
+ [12:24:55.310] {Account} No records to delete.
+ [12:24:55.311] Deleting data was skipped.
+
+ SOURCE:
+ =============
+
+ FETCHING THE DATA (STAGE 1) ...
+ [12:24:55.314] {Account} Fetching the Source data from Org (STAGE 1: all records) ...
+ [12:24:55.314] {Account} Query string: SELECT Id, Name  FROM  Account.
+ [12:24:55.316] {Account} Using REST API to retrieve the data ...
+ [12:24:55.532] {Account} Data retrieval (Source) has been completed. Got 1 new records.
+ [12:24:55.533] Data retrieval (STAGE 1) has been completed.
+
+ FETCHING THE DATA (STAGE 2) ...
+ [12:24:55.534] PASS 1
+ =============
+ [12:24:55.534] No records
+
+ [12:24:55.535] PASS 2
+ =============
+ [12:24:55.535] No records
+
+ [12:24:55.535] PASS 3
+ =============
+ [12:24:55.536] No records
+
+ [12:24:55.536] PASS 4
+ =============
+ [12:24:55.537] No records
+
+ TARGET:
+ =============
+ [12:24:55.537] No records
+ [12:24:55.537] Data retrieval (STAGE 2) has been completed.
+
+ TRIGGERING ADD-ON EVENTS ...
+ [12:24:55.538] No Add-On modules found to run.
+
+
+ DATA RETRIEVAL SUMMARY.
+ [12:24:55.538] {Account} The total amount of the retrieved records: 1/0.
+
+ UPDATING THE TARGET (STAGE 1) ...
+ [12:24:55.542] {Account} Creating the file /Users/kiranmoy/Desktop/CK/EngineeringExcellence/DevOps/SalesforceDevOpsBoilerplate/kp-salesforce-devops-poc/cicd-utils/sfdmu/firstrun/Account.csv ...
+ [12:24:55.547] {Account} The Target has been updated. Totally processed 1 records.
+
+
+ [12:24:55.548] The Target (STAGE 1) has been updated. Totally processed 1 records.
+
+ UPDATING THE TARGET (STAGE 2) ...
+
+ [12:24:55.548] Nothing was updated.
+
+ TRIGGERING ADD-ON EVENTS ...
+ [12:24:55.549] No Add-On modules found to run.
+
+
+ DATA PROCESSING SUMMARY.
+ [12:24:55.549] {Account} Totally processed 1 records.
+
+ [12:24:55.549] Writing to /Users/kiranmoy/Desktop/CK/EngineeringExcellence/DevOps/SalesforceDevOpsBoilerplate/kp-salesforce-devops-poc/cicd-utils/sfdmu/firstrun/MissingParentRecordsReport.csv ...
+
+
+ TRIGGERING ADD-ON EVENTS ...
+ [12:24:55.549] No Add-On modules found to run.
+
+
+ [12:24:55.552] Command succeeded.
+ [12:24:55.552] Execution of the command sfdmu:run has been completed. Exit code 0 (SUCCESS).
+ [12:24:55.553] Total time elapsed: 00h 00m 17s 654ms .

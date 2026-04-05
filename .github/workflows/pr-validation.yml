@@ -1,0 +1,28 @@
+# Pull request validation initiation
+name: Pull Request (PR) Validation
+
+# Controls when the action will run.
+on:
+  # Trigger the PR validation on pull request with master branch
+  pull_request:
+    branches:
+      - "dev"
+      - "qa"
+      - "uat"
+      - "preprod"
+      - "master"
+jobs:
+  # Validate the Commit against Ci Org to ensure nothing is conflicting.
+  build:
+    name: PR Validation
+    # Utilizing the dynamic yml file for reusability
+    uses: ./.github/workflows/pr-validation-workflow.yml
+    with:
+      WORKFLOW_TYPE: PRVALIDATION
+      AUTH_ORG_ALIAS: CI
+      BASE_BRANCH: ${{ github.base_ref }}
+    # Secrets are passed to the called workflow to ensure secure handling of sensitive information
+    secrets:
+      SECRET_URL_PATH: ${{secrets.CI_ORG_AUTH_URL}}
+      DOCKER_HUB_UN: ${{secrets.DOCKER_HUB_USERNAME}}
+      DOCKER_HUB_PW: ${{secrets.DOCKER_HUB_PASSWORD}}

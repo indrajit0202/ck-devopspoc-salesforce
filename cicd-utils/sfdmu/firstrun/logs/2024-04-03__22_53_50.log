@@ -1,0 +1,19 @@
+
+ [22:53:50.13] Execution of the command sfdmu:run has been started.
+
+ LOADING AND VALIDATING THE EXPORT.JSON SCRIPT ...
+
+ OBJECT SET #1 STARTED
+
+ {
+   "Running Plugin version": "4.32.2"
+}
+ {
+   "Running Add-On API version": "1.5.0"
+}
+
+ [22:53:50.40] Loading Core Add-On Module declarations ...
+
+ [22:53:50.66] [ERROR] Command initialization error: Invalid operation 8 is set for the object ..
+ [22:53:50.68] [ERROR] Execution of the command sfdmu:run has been completed. Exit code 2 (COMMAND_INITIALIZATION_ERROR).
+ [22:53:50.68] Total time elapsed: 00h 00m 00s 054ms .

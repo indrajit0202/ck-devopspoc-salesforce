@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Standard PMD Rules" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>PMD Rules</description>
+
+    <!-- PMD DEFAULT RULES -->
+    <!-- Apex Code Style Rules -->
+    <rule ref="category/apex/codestyle.xml">
+    </rule>
+    <!-- ClassNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="testClassPattern" value="^(?:[A-Z][a-zA-Z0-9]*)+(Test|TestHelper)(V\d+)?$" />
+            <property name="abstractClassPattern" value="^(?:[A-Z][a-zA-Z0-9]*)+(Abstract)(V\d+)?$" />
+            <property name="classPattern" value="^(?:[A-Z][a-zA-Z0-9]*)+(API|Controller|Test|TestHelper|Util|Helper|Wrapper|Extension|Constants|Queueable|Batch|DynamicJob|Job|Handler|Trigger|Abstract|Enum|Callout|Mock|Adapter|Parser|Utility|Scheduler|Exception|Manager)(V\d+)?$" />
+            <property name="interfacePattern" value="^(I)+(?:[A-Z][a-zA-Z0-9]*)$" />
+            <property name="enumPattern" value="^(?:[A-Z][a-zA-Z0-9]*)+(Enum)(V\d+)?$" />
+        </properties>
+    </rule>
+    <!-- MethodNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/MethodNamingConventions">
+        <properties>
+            <property name="testPattern" value="[a-z][a-zA-Z]*" />
+            <property name="staticPattern" value="[a-z][a-zA-Z]*" />
+            <property name="instancePattern" value="[a-z][a-zA-Z]*" />
+        </properties>
+    </rule>
+    <!-- FieldNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/FieldNamingConventions">
+        <properties>
+            <property name="enumConstantPattern" value="^[A-Z]+(?:_[A-Z]+)*$" />
+            <property name="constantPattern" value="^[A-Z]+(?:_[A-Z]+)*$" />
+            <property name="finalPattern" value="^[A-Z]+(?:_[A-Z]+)*$" />
+            <property name="staticPattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+            <property name="instancePattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+        </properties>
+    </rule>
+    <!-- LocalVariableNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/LocalVariableNamingConventions">
+        <properties>
+            <property name="finalLocalPattern" value="^[A-Z]+(?:_[A-Z]+)*$" />
+            <property name="localPattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+        </properties>
+    </rule>
+    <!-- PropertyNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/PropertyNamingConventions">
+        <properties>
+            <property name="staticPattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+            <property name="instancePattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+        </properties>
+    </rule>
+    <!-- FormalParameterNamingConventions -->
+    <rule ref="category/apex/codestyle.xml/FormalParameterNamingConventions">
+        <properties>
+            <property name="finalMethodParameterPattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+            <property name="methodParameterPattern" value="^(?!^[a-z]$)[a-z][a-zA-Z]{1,24}$" />
+        </properties>
+    </rule>
+    <!-- Apex Design Rules -->
+    <rule ref="category/apex/design.xml">
+    </rule>
+    <!-- ExcessiveClassLength -->
+    <rule ref="category/apex/design.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="700" />
+        </properties>
+    </rule>
+    <!-- NcssMethodCount -->
+    <rule ref="category/apex/design.xml/NcssMethodCount">
+        <properties>
+            <property name="minimum" value="60" />
+        </properties>
+    </rule>
+    <!-- Apex Performance Rules -->
+    <rule ref="category/apex/performance.xml">
+    </rule>
+    <!-- Apex Errorprone Rules -->
+    <rule ref="category/apex/errorprone.xml"></rule>
+    <!-- Apex Bestpractices Rules -->
+    <rule ref="category/apex/bestpractices.xml">
+    </rule>
+    <!-- Apex Apex Security Rules -->
+    <rule ref="category/apex/security.xml">
+    </rule>
+    <!-- VF Security Rules -->
+    <rule ref="category/vf/security.xml"></rule>
+    <!-- Apex Doc Rules -->
+    <rule ref="category/apex/documentation.xml" />
+     <!-- ApexDoc -->
+    <rule ref="category/apex/documentation.xml/ApexDoc">
+        <properties>
+            <property name="reportPrivate" value="true" />
+            <property name="reportProtected" value="true" />
+            <property name="reportMissingDescription" value="true" />
+            <property name="reportProperty" value="true" />
+        </properties>
+    </rule>
+</ruleset>
