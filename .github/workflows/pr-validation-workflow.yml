@@ -41,7 +41,7 @@ jobs:
 
     # Docker container load
     container:
-      image: indrajitck/sfdx-cli-image:arm64
+      image: indrajitck/sfdx-cli-image:latest
       credentials:
         username: ${{ secrets.DOCKER_HUB_UN }}
         password: ${{ secrets.DOCKER_HUB_PW }}
