@@ -1,7 +1,7 @@
 /**
  * @description       : This class is the handler class for the job posting display LWC component and the purpose is to fetch all the active job postings according to needs.
  * @author            : Indrajit Pal
- * @last modified on  : 12-27-2024
+ * @last modified on  : 04-06-2026
  * @last modified by  : Indrajit Pal
 **/
 public with sharing class ActiveJobPostingHandler {
@@ -11,7 +11,7 @@ public with sharing class ActiveJobPostingHandler {
     /**
     * @description This method will return all the job postings whose positions where the status is open - approved
     * @author Indrajit Pal | 11-09-2024 
-    * @return List<Job_Posting__c> 
+    * @return List<Job_Posting__c>
     **/
     @AuraEnabled(cacheable=true)
     public static List<Job_Posting__c> getActiveJobPosting(){
