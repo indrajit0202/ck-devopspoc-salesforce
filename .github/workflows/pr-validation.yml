@@ -10,7 +10,7 @@ on:
       - "qa"
       - "uat"
       - "preprod"
-      - "master"
+      - "main"
 jobs:
   # Validate the Commit against Ci Org to ensure nothing is conflicting.
   build:
