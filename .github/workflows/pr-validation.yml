@@ -23,6 +23,9 @@ jobs:
       BASE_BRANCH: ${{ github.base_ref }}
     # Secrets are passed to the called workflow to ensure secure handling of sensitive information
     secrets:
-      SECRET_URL_PATH: ${{secrets.CI_ORG_AUTH_URL}}
+      SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
+      SF_JWT_PRIVATE_KEY: ${{ secrets.SF_JWT_PRIVATE_KEY }}
+      SF_USERNAME: ${{ secrets.SF_USERNAME }}
+      SF_INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
       DOCKER_HUB_UN: ${{secrets.DOCKER_HUB_USERNAME}}
       DOCKER_HUB_PW: ${{secrets.DOCKER_HUB_PASSWORD}}

@@ -18,7 +18,13 @@ on:
 
     # Specifying the required secrets for this reusable workflow
     secrets:
-      SECRET_URL_PATH:
+      SF_CLIENT_ID:
+        required: true
+      SF_JWT_PRIVATE_KEY:
+        required: true
+      SF_USERNAME:
+        required: true
+      SF_INSTANCE_URL:
         required: true
       DOCKER_HUB_UN:
         required: true
@@ -35,7 +41,10 @@ jobs:
       WORKFLOW_TYPE: ${{ inputs.WORKFLOW_TYPE }}
       AUTH_ORG_ALIAS: ${{ inputs.AUTH_ORG_ALIAS }}
       BASE_BRANCH: ${{ inputs.BASE_BRANCH }}
-      SECRET_URL_PATH: ${{ secrets.SECRET_URL_PATH }}
+      CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
+      USERNAME: ${{ secrets.SF_USERNAME }}
+      INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
+      SECURE_FILE: /tmp/server.key
       SFDX_DISABLE_DNS_CHECK: true
       FORCE_SHOW_SPINNER: true
 
@@ -51,6 +60,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
+      - name: Write JWT Private Key
+        run: |
+          echo "${{ secrets.SF_JWT_PRIVATE_KEY }}" > /tmp/server.key
+          chmod 600 /tmp/server.key
+        shell: bash
 
       # Authenticate with the Org
       - name: Salesforce Authentication

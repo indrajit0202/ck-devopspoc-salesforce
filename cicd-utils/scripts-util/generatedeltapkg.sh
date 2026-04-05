@@ -28,7 +28,7 @@ createDirectories() {
     # Create pipeline-artifacts directory will contain artifact related folder/files and adding the pmd report container csv file inside it
     mkdir pipeline-artifacts
     touch pipeline-artifacts/pmd-results.csv
-    # Create the runTestClasses file inside the testclass-util folder which will contain all the test classes  taht will run during validation process
+    # Create the runTestClasses file inside the testclass-util folder which will contain all the test classes that will run during validation process
     touch cicd-utils/testclass-util/runTestClasses.txt
 }
 
@@ -50,7 +50,7 @@ executeDeltaValidation() {
     fi
     
     # Execute sf sgd:source:delta command
-    sf sgd:source:delta --to HEAD --from "$from" --output $changedSourceFolderPath -i $sgdIgnoreFilePath --generate-delta
+    sf sgd:source:delta --to HEAD --from "$from" --output-dir $changedSourceFolderPath -i $sgdIgnoreFilePath --generate-delta
 }
 
 # Function to print the output to the console
