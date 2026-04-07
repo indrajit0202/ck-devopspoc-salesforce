@@ -1,7 +1,7 @@
 /**
  * @description       : Send welcome email to a candidate based on the contact linked with the candidate.
  * @author            : Indrajit Pal
- * @last modified on  : 12-27-2024
+ * @last modified on  : 04-08-2026
  * @last modified by  : Indrajit Pal
 **/
 public inherited sharing class SendWelcomeEmailController {
@@ -23,7 +23,7 @@ public inherited sharing class SendWelcomeEmailController {
                                                 WHERE Name = :RecruitingAppCustomConstants.CANDIDATE_SEND_WELCOME_EMAIL_TEMPLATE
                                                 WITH SECURITY_ENFORCED];
             templateListNullCheck(templateList);
-            EmailTemplate templateObj = templateList[0];
+            EmailTemplate templateObj = templateList[0]; 
             
             for(Id contactId : contactIdList){
                 Messaging.SingleEmailMessage messageObj = new Messaging.SingleEmailMessage();
