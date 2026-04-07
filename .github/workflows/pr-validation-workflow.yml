@@ -61,13 +61,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ── 2. Setup Node (comes pre-installed on ubuntu-latest) ───────────────
+      # ── Setup Node (comes pre-installed on ubuntu-latest)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # ── 3. Restore caches ─────────────────────────────────────────────────
+      # ── Restore caches 
       - name: Restore SF CLI & plugins cache
         id: cache-sf
         uses: actions/cache@v4
@@ -92,7 +92,7 @@ jobs:
           path: /usr/lib/jvm/java-17-openjdk-amd64
           key: java-17-${{ runner.os }}-v1
 
-      # ── 4. Install dependencies ────────────────────────────────────────────
+      # ── Install dependencies 
       - name: Install dependencies
         env:
           SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
@@ -128,8 +128,9 @@ jobs:
             echo "✓ Java 17 restored from cache"
           fi
 
-          # ── Set JAVA_HOME ──
+          # ── Always set JAVA_HOME (cache restore doesn't do this) ──
           echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+          echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
 
           # ── Verify ──
           echo "--- Versions ---"
