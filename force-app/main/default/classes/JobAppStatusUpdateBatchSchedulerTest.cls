@@ -29,6 +29,6 @@ public with sharing class JobAppStatusUpdateBatchSchedulerTest {
         System.assertEquals('{DATE_PLACEHOLDER} 00:00:00', String.valueOf(ct.NextFireTime));
         
         // Verify jobId is not null
-        System.assertNotEquals(null, jobId); 
+        System.assertNotEquals(null, jobId);
     }
 }
