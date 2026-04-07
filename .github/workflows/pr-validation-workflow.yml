@@ -136,14 +136,11 @@ jobs:
           
           # ── Verify (use absolute paths — GITHUB_PATH not active yet in this step) ──
           # ── Verify ──
-          echo "--- Versions ---"
-          echo ">>> Finding sf binary location..."
-          which sf || true
-          find /usr /home/runner -name "sf" -type f 2>/dev/null || true
-          echo ">>> NPM global prefix:"
+          echo "--- Diagnostics ---"
           npm config get prefix || true
-          echo ">>> Listing /usr/local/bin:"
-          ls /usr/local/bin | grep -i sf || true
+          find /usr /home/runner /root -name "sf" -type f 2>/dev/null || true
+          ls /usr/local/bin || true
+          echo "--- Done ---"
 
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
