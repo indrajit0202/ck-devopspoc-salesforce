@@ -27,7 +27,7 @@ public with sharing class ActiveJobPostingHandler {
                                                         WHERE Position__r.Status__c =: RecruitingAppCustomConstants.POSITION_STATUS_OPEN_APPROVED
                                                         WITH SECURITY_ENFORCED];
             if(activeJobPostingList.size() == 0 || activeJobPostingList == null){ 
-                throw new AuraHandledException(NO_ACTIVE_JOB_POSTING_FOUND);
+                throw new AuraHandledException(NO_ACTIVE_JOB_POSTING_FOUND); 
             }
             return activeJobPostingList;
         } catch (AuraHandledException aheObj) { 
