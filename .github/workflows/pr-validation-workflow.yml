@@ -128,17 +128,17 @@ jobs:
             echo "✓ Java 17 restored from cache"
           fi
 
-          # ── Always set JAVA_HOME (cache restore doesn't do this) ──
-          echo "/usr/local/bin" >> $GITHUB_PATH                    
-          echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV             
-          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV   
+          # ── Always register PATH & env (for next steps) ──
+          echo "/usr/local/bin" >> $GITHUB_PATH
+          echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
 
-          # ── Verify ──
+          # ── Verify (use absolute paths — GITHUB_PATH not active yet in this step) ──
           echo "--- Versions ---"
-          sf --version
-          sf plugins
-          java -version
+          /usr/local/bin/sf --version
+          /usr/local/bin/sf plugins
+          /usr/lib/jvm/java-17-openjdk-amd64/bin/java -version
 
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
