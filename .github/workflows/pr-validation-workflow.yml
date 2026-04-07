@@ -129,18 +129,17 @@ jobs:
           fi
 
           # ── Always register PATH & env (for next steps) ──
-          echo "/usr/local/bin" >> $GITHUB_PATH
+          NPM_PREFIX=$(npm config get prefix)
+          echo "${NPM_PREFIX}/bin" >> $GITHUB_PATH
           echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV
           echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
-          
-          # ── Verify (use absolute paths — GITHUB_PATH not active yet in this step) ──
+
           # ── Verify ──
-          echo "--- Diagnostics ---"
-          npm config get prefix || true
-          find /usr /home/runner /root -name "sf" -type f 2>/dev/null || true
-          ls /usr/local/bin || true
-          echo "--- Done ---"
+          echo "--- Versions ---"
+          ${NPM_PREFIX}/bin/sf --version
+          ${NPM_PREFIX}/bin/sf plugins
+          /usr/lib/jvm/java-17-openjdk-amd64/bin/java -version
 
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
