@@ -29,7 +29,7 @@ public with sharing class ActiveJobPostingHandler {
             if(activeJobPostingList.size() == 0 || activeJobPostingList == null){ 
                 throw new AuraHandledException(NO_ACTIVE_JOB_POSTING_FOUND);
             }
-            return activeJobPostingList;
+            return activeJobPostingList; 
         } catch (AuraHandledException aheObj) { 
             throw aheObj;
         } catch (Exception exObj) {
