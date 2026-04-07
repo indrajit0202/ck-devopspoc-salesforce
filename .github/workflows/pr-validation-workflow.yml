@@ -61,6 +61,49 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
+=======
+     # ── Setup Node ────────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set fixed npm global prefix
+        run: npm config set prefix /usr/local
+
+      - name: Restore SF CLI & plugins cache
+        id: cache-sf
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/bin/sf
+            /usr/local/bin/sfdx
+            /usr/local/lib/node_modules/@salesforce
+            ~/.local/share/sf
+            ~/.sf
+            ~/.config/sf
+            ~/.sfdx
+          key: sf-cli-plugins-v3-${{ runner.os }}
+          restore-keys: |
+            sf-cli-plugins-v3-${{ runner.os }}
+
+      - name: Restore Java cache
+        id: cache-java
+        uses: actions/cache@v4
+        with:
+          path: /usr/lib/jvm/java-17-openjdk-amd64
+          key: java-17-${{ runner.os }}-v1
+
+      # ── Install dependencies ───────────────────────────────────────────────
+      - name: Install dependencies
+        env:
+          SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
+          JAVA_CACHE_HIT: ${{ steps.cache-java.outputs.cache-hit }}
+        run: chmod +x ./cicd-utils/scripts-util/install-dependencies.sh && ./cicd-utils/scripts-util/install-dependencies.sh
+        shell: bash
+
+>>>>>>> a8cd04f (ci: pr validation workflow update)
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
         run: |
