@@ -61,13 +61,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ── Setup Node (comes pre-installed on ubuntu-latest)
+     # ── Setup Node ────────────────────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # ── Restore caches 
+      - name: Set fixed npm global prefix
+        run: npm config set prefix /usr/local
+
       - name: Restore SF CLI & plugins cache
         id: cache-sf
         uses: actions/cache@v4
@@ -81,9 +83,9 @@ jobs:
             /usr/local/bin/sfdx
             ~/.config/sf
             ~/.sfdx
-          key: sf-cli-plugins-v1-${{ runner.os }}
+          key: sf-cli-plugins-v2-${{ runner.os }}
           restore-keys: |
-            sf-cli-plugins-v1-${{ runner.os }}
+            sf-cli-plugins-v2-${{ runner.os }}
 
       - name: Restore Java cache
         id: cache-java
@@ -92,7 +94,7 @@ jobs:
           path: /usr/lib/jvm/java-17-openjdk-amd64
           key: java-17-${{ runner.os }}-v1
 
-      # ── Install dependencies 
+        # ── Install dependencies ───────────────────────────────────────────────
       - name: Install dependencies
         env:
           SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
@@ -104,16 +106,16 @@ jobs:
             npm install @salesforce/cli@latest -g
 
             echo ">>> Installing sfdx-git-delta..."
-            echo 'y' | sf plugins install sfdx-git-delta
+            echo 'y' | /usr/local/bin/sf plugins install sfdx-git-delta
 
             echo ">>> Installing SFDMU..."
-            sf plugins install sfdmu
+            /usr/local/bin/sf plugins install sfdmu
 
             echo ">>> Installing SFDX Scanner..."
-            sf plugins install @salesforce/sfdx-scanner
+            /usr/local/bin/sf plugins install @salesforce/sfdx-scanner
 
             echo ">>> Installing Skuid SFDX..."
-            echo 'y' | sf plugins install skuid-sfdx
+            echo 'y' | /usr/local/bin/sf plugins install skuid-sfdx
           else
             echo "✓ SF CLI & plugins restored from cache"
           fi
@@ -129,16 +131,15 @@ jobs:
           fi
 
           # ── Always register PATH & env (for next steps) ──
-          NPM_PREFIX=$(npm config get prefix)
-          echo "${NPM_PREFIX}/bin" >> $GITHUB_PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
           echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV
           echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
 
-          # ── Verify ──
+          # ── Verify (absolute paths — GITHUB_PATH not active yet in this step) ──
           echo "--- Versions ---"
-          ${NPM_PREFIX}/bin/sf --version
-          ${NPM_PREFIX}/bin/sf plugins
+          /usr/local/bin/sf --version
+          /usr/local/bin/sf plugins
           /usr/lib/jvm/java-17-openjdk-amd64/bin/java -version
 
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
