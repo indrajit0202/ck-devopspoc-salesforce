@@ -49,17 +49,93 @@ jobs:
       FORCE_SHOW_SPINNER: true
 
     # Docker container load
-    container:
-      image: indrajitck/sfdx-cli-image:latest
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_UN }}
-        password: ${{ secrets.DOCKER_HUB_PW }}
+    # container:
+    #   image: indrajitck/sfdx-cli-image:latest
+    #   credentials:
+    #     username: ${{ secrets.DOCKER_HUB_UN }}
+    #     password: ${{ secrets.DOCKER_HUB_PW }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # ── 2. Setup Node (comes pre-installed on ubuntu-latest) ───────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ── 3. Restore caches ─────────────────────────────────────────────────
+      - name: Restore SF CLI & plugins cache
+        id: cache-sf
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/lib/node_modules/@salesforce
+            /usr/local/lib/node_modules/sfdx-git-delta
+            /usr/local/lib/node_modules/@mshanemc
+            /usr/local/lib/node_modules/skuid-sfdx
+            /usr/local/bin/sf
+            /usr/local/bin/sfdx
+            ~/.config/sf
+            ~/.sfdx
+          key: sf-cli-plugins-v1-${{ runner.os }}
+          restore-keys: |
+            sf-cli-plugins-v1-${{ runner.os }}
+
+      - name: Restore Java cache
+        id: cache-java
+        uses: actions/cache@v4
+        with:
+          path: /usr/lib/jvm/java-17-openjdk-amd64
+          key: java-17-${{ runner.os }}-v1
+
+      # ── 4. Install dependencies ────────────────────────────────────────────
+      - name: Install dependencies
+        env:
+          SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
+          JAVA_CACHE_HIT: ${{ steps.cache-java.outputs.cache-hit }}
+        run: |
+          # ── Salesforce CLI & plugins ──
+          if [ "$SF_CACHE_HIT" != "true" ]; then
+            echo ">>> Installing Salesforce CLI..."
+            npm install @salesforce/cli@latest -g
+
+            echo ">>> Installing sfdx-git-delta..."
+            echo 'y' | sf plugins install sfdx-git-delta
+
+            echo ">>> Installing SFDMU..."
+            sf plugins install sfdmu
+
+            echo ">>> Installing SFDX Scanner..."
+            sf plugins install @salesforce/sfdx-scanner
+
+            echo ">>> Installing Skuid SFDX..."
+            echo 'y' | sf plugins install skuid-sfdx
+          else
+            echo "✓ SF CLI & plugins restored from cache"
+          fi
+
+          # ── Java 17 ──
+          if [ "$JAVA_CACHE_HIT" != "true" ]; then
+            echo ">>> Installing Java 17..."
+            sudo apt-get update -qq
+            sudo apt-get install -y openjdk-17-jre-headless
+            sudo apt-get clean
+          else
+            echo "✓ Java 17 restored from cache"
+          fi
+
+          # ── Set JAVA_HOME ──
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+
+          # ── Verify ──
+          echo "--- Versions ---"
+          sf --version
+          sf plugins
+          java -version
 
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
