@@ -1,7 +1,7 @@
 /**
  * @description       : 
  * @author            : Indrajit Pal
- * @last modified on  : 12-27-2024
+ * @last modified on  : 04-08-2026
  * @last modified by  : Indrajit Pal
 **/
 @isTest
@@ -29,6 +29,6 @@ public with sharing class JobAppStatusUpdateBatchSchedulerTest {
         System.assertEquals('{DATE_PLACEHOLDER} 00:00:00', String.valueOf(ct.NextFireTime));
         
         // Verify jobId is not null
-        System.assertNotEquals(null, jobId);
+        System.assertNotEquals(null, jobId); 
     }
 }
