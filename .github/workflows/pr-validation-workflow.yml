@@ -82,9 +82,9 @@ jobs:
             ~/.sf
             ~/.config/sf
             ~/.sfdx
-          key: sf-cli-plugins-v3-${{ runner.os }}
+          key: sf-cli-plugins-v4-${{ runner.os }}
           restore-keys: |
-            sf-cli-plugins-v3-${{ runner.os }}
+            sf-cli-plugins-v4-${{ runner.os }}
 
       - name: Restore Java cache
         id: cache-java
@@ -121,6 +121,13 @@ jobs:
       # Instantiate static code scan using PMD
       - name: Static Code Analysis (PMD)
         run: chmod +x ./cicd-utils/scripts-util/scanner.sh && ./cicd-utils/scripts-util/scanner.sh
+        shell: bash
+
+      # -----------------------------------------------------------------------
+      # Static Code Analysis — PMD + ESLint via Code Analyzer v5
+      # -----------------------------------------------------------------------
+      - name: Static Code Analysis (PMD + ESLint — Code Analyzer v5)
+        run: chmod +x ./cicd-utils/scripts-util/code-scanner.sh && ./cicd-utils/scripts-util/code-scanner.sh
         shell: bash
 
       # Dynamically generate test class list

@@ -82,7 +82,7 @@
     <rule ref="category/apex/security.xml">
     </rule>
     <!-- VF Security Rules -->
-    <rule ref="category/vf/security.xml"></rule>
+    <rule ref="category/visualforce/security.xml"></rule>
     <!-- Apex Doc Rules -->
     <rule ref="category/apex/documentation.xml" />
      <!-- ApexDoc -->

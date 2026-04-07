@@ -1,4 +1,11 @@
+# --------------------------------------------------------------------------------------------------------------
+# Description : The purpose of this shell script is to install the required dependencies for the CI/CD pipeline execution in GitHub Actions environment
+# Author : Indrajit Pal
+# Date : 07/04/2026
+# --------------------------------------------------------------------------------------------------------------
+
 set -e  # exit immediately if any command fails
+
 # ── Salesforce CLI & plugins ──
 if [ "$SF_CACHE_HIT" != "true" ]; then
   echo ">>> Installing Salesforce CLI..."
@@ -12,6 +19,9 @@ if [ "$SF_CACHE_HIT" != "true" ]; then
 
   echo ">>> Installing SFDX Scanner..."
   /usr/local/bin/sf plugins install @salesforce/sfdx-scanner
+
+  echo ">>> Installing Salesforce Code Analyzer..."
+  /usr/local/bin/sf plugins install code-analyzer@latest
 
   echo ">>> Installing Skuid SFDX..."
   echo 'y' | /usr/local/bin/sf plugins install skuid-sfdx
