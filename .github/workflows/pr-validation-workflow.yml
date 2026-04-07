@@ -49,11 +49,11 @@ jobs:
       FORCE_SHOW_SPINNER: true
 
     # Docker container load
-    container:
-      image: indrajitck/sfdx-cli-image:latest
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_UN }}
-        password: ${{ secrets.DOCKER_HUB_PW }}
+    # container:
+    #   image: indrajitck/sfdx-cli-image:latest
+    #   credentials:
+    #     username: ${{ secrets.DOCKER_HUB_UN }}
+    #     password: ${{ secrets.DOCKER_HUB_PW }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
