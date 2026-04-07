@@ -31,7 +31,7 @@ public with sharing class ActiveJobPostingHandler {
             }
             return activeJobPostingList;
         } catch (AuraHandledException aheObj) { 
-            throw aheObj;  
+            throw aheObj;
         } catch (Exception exObj) {
             CustomExceptionHandler.logException(exObj, ActiveJobPostingHandler.class.getName());
             throw new AuraHandledException(exObj.getMessage());
