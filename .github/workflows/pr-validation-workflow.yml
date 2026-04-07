@@ -129,7 +129,9 @@ jobs:
           fi
 
           # ── Always set JAVA_HOME (cache restore doesn't do this) ──
-          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+          echo "/usr/local/bin" >> $GITHUB_PATH                    
+          echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV             
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV   
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
 
           # ── Verify ──
