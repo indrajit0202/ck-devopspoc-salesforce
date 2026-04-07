@@ -133,7 +133,14 @@ jobs:
           echo "SF_HOME=$HOME/.config/sf" >> $GITHUB_ENV
           echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
-
+          # ── Verify (use absolute paths — GITHUB_PATH not active yet in this step) ──
+          echo "--- Versions ---"
+          echo ">>> Finding sf binary location..."
+          which sf || true
+          find / -name "sf" -type f 2>/dev/null || true
+          /usr/local/bin/sf --version
+          /usr/local/bin/sf plugins
+          /usr/lib/jvm/java-17-openjdk-amd64/bin/java -version
           # ── Verify (use absolute paths — GITHUB_PATH not active yet in this step) ──
           echo "--- Versions ---"
           /usr/local/bin/sf --version
