@@ -6,7 +6,7 @@
 **/
 public with sharing class ActiveJobPostingHandler {
     public static final string NO_ACTIVE_JOB_POSTING_FOUND = 'No Active Job Postings Found';
-    public static final string NO_JOB_POSTINGS_FOUND = 'No Job Postings Found for this Department';
+    public static final string NO_JOB_POSTINGS_FOUND = 'No Job Postings Found for this Department'; 
 
     /**
     * @description This method will return all the job postings whose positions where the status is open - approved
