@@ -1,7 +1,7 @@
 /**
  * @description       : This class is the handler class for the job posting display LWC component and the purpose is to fetch all the active job postings according to needs.
  * @author            : Indrajit Pal
- * @last modified on  : 04-06-2026
+ * @last modified on  : 04-07-2026
  * @last modified by  : Indrajit Pal
 **/
 public with sharing class ActiveJobPostingHandler {
@@ -30,7 +30,7 @@ public with sharing class ActiveJobPostingHandler {
                 throw new AuraHandledException(NO_ACTIVE_JOB_POSTING_FOUND);
             }
             return activeJobPostingList;
-        } catch (AuraHandledException aheObj) {
+        } catch (AuraHandledException aheObj) { 
             throw aheObj;  
         } catch (Exception exObj) {
             CustomExceptionHandler.logException(exObj, ActiveJobPostingHandler.class.getName()); 
