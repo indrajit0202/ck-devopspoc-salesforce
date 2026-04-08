@@ -22,16 +22,16 @@ jobs:
       DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
   # Job to deploy components to the PREPROD environment
-  prod-promote:
-    if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name == 'master' }}
-    name: PROD
-    # Utilizing the dynamic yml file for reusability
-    uses: ./.github/workflows/deployment-workflow.yml
-    with:
-      WORKFLOW_TYPE: DEPLOYMENT
-      AUTH_ORG_ALIAS: Production
-    secrets:
-      PROD_ORG_DOMAIN: ${{ secrets.PROD_ORG_DOMAIN }}
-      SECRET_URL_PATH: ${{ secrets.PROD_ORG_AUTH_URL }}
-      DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  # prod-promote:
+  #   if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name == 'master' }}
+  #   name: PROD
+  #   # Utilizing the dynamic yml file for reusability
+  #   uses: ./.github/workflows/deployment-workflow.yml
+  #   with:
+  #     WORKFLOW_TYPE: DEPLOYMENT
+  #     AUTH_ORG_ALIAS: Production
+  #   secrets:
+  #     PROD_ORG_DOMAIN: ${{ secrets.PROD_ORG_DOMAIN }}
+  #     SECRET_URL_PATH: ${{ secrets.PROD_ORG_AUTH_URL }}
+  #     DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #     DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
