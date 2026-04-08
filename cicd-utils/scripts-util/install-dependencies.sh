@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------------------------------------------
 # Description : The purpose of this shell script is to install the required dependencies for the CI/CD pipeline execution in GitHub Actions environment
-# Author : Indrajit Pal
-# Date : 07/04/2026
+# Author      : Indrajit Pal
+# Date        : 07/04/2026
 # --------------------------------------------------------------------------------------------------------------
 
 set -e  # exit immediately if any command fails

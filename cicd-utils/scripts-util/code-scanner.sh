@@ -1,3 +1,9 @@
+# --------------------------------------------------------------------------------------------------------------
+# Description : This shell script is designed to run Salesforce Code Analyzer (which includes PMD and ESLint engines) on the changed source files in a Salesforce project, generate a JSON report, and print a readable summary of the results to the pipeline log. It is intended for use in a CI/CD pipeline to enforce code quality standards before deployment.
+# Author      : Indrajit Pal
+# Date        : 08/04/2026
+# --------------------------------------------------------------------------------------------------------------
+
 # Exit immediately if any command fails, treat unset variables as an error, and ensure that errors in pipelines are not masked
 set -euo pipefail
 

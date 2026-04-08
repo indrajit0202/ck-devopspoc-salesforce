@@ -11,6 +11,21 @@ on:
       - "preprod"
 
 jobs:
+  # ✅ New — Dev job
+  dev-promote:
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    name: DEV
+    uses: ./.github/workflows/deployment-workflow.yml
+    with:
+      WORKFLOW_TYPE: DEPLOYMENT
+      AUTH_ORG_ALIAS: Dev
+    secrets:
+      SF_CLIENT_ID: ${{ secrets.DEV_SF_CLIENT_ID }}
+      SF_JWT_PRIVATE_KEY: ${{ secrets.DEV_SF_JWT_PRIVATE_KEY }}
+      SF_USERNAME: ${{ secrets.DEV_SF_USERNAME }}
+      SF_INSTANCE_URL: ${{ secrets.DEV_SF_INSTANCE_URL }}
+      # DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
+      # DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
   # Job to deploy components to the QA environment
   qa-promote:
     if: ${{ github.event_name == 'push' && github.ref_name == 'qa' }}

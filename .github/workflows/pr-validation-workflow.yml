@@ -93,7 +93,7 @@ jobs:
           path: /usr/lib/jvm/java-17-openjdk-amd64
           key: java-17-${{ runner.os }}-v1
 
-      # ── Install dependencies ───────────────────────────────────────────────
+      # Install dependencies and set up environment for subsequent steps, with caching optimizations for SF CLI and Java
       - name: Install dependencies
         env:
           SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
@@ -123,9 +123,7 @@ jobs:
         run: chmod +x ./cicd-utils/scripts-util/scanner.sh && ./cicd-utils/scripts-util/scanner.sh
         shell: bash
 
-      # -----------------------------------------------------------------------
       # Static Code Analysis — PMD + ESLint via Code Analyzer v5
-      # -----------------------------------------------------------------------
       - name: Static Code Analysis (PMD + ESLint — Code Analyzer v5)
         run: chmod +x ./cicd-utils/scripts-util/code-scanner.sh && ./cicd-utils/scripts-util/code-scanner.sh
         shell: bash
