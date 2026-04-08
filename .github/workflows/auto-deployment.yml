@@ -11,7 +11,7 @@ on:
       - "preprod"
 
 jobs:
-  # ✅ New — Dev job
+  # Job to deploy components to the DEV environment
   dev-promote:
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     name: DEV
@@ -26,6 +26,7 @@ jobs:
       SF_INSTANCE_URL: ${{ secrets.DEV_SF_INSTANCE_URL }}
       # DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
       # DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
   # Job to deploy components to the QA environment
   qa-promote:
     if: ${{ github.event_name == 'push' && github.ref_name == 'qa' }}
