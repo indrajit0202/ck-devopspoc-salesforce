@@ -1,0 +1,41 @@
+# =============================================================================
+# Salesforce Code Analyzer v5 — Project Configuration
+# Place this file at: cicd-utils/code-analyzer/code-analyzer.yml
+# Reference: https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/config-custom.html
+# =============================================================================
+
+
+ignores:
+  files:
+    - "**/TriggerHandlerTest.cls"
+engines:
+  pmd:
+    # Point Code Analyzer v5 to your existing custom PMD ruleset XML
+    custom_rulesets:
+      - cicd-utils/pmd-util/pmd-rule/pmdRules.xml
+
+    # File extensions PMD will scan (defaults shown — adjust if needed)
+    file_extensions:
+      apex:
+        - ".cls"
+        - ".trigger"
+      visualforce:
+        - ".page"
+        - ".component"
+    disable_engine: false 
+
+  eslint:
+    # Disable engines you are NOT using so you don't see "engine not found" warnings
+    disable_engine: false   # keep ESLint ON
+
+  # Explicitly disable all other engines so only pmd + eslint run
+  retire-js:
+    disable_engine: true
+  cpd:
+    disable_engine: true
+  flow:
+    disable_engine: true
+  regex:
+    disable_engine: true
+  sfge:
+    disable_engine: true

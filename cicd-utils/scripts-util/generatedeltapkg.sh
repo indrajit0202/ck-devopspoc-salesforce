@@ -6,9 +6,9 @@
 # --------------------------------------------------------------------------------------------------------------
 
 # Function to update HOME directory to root
-updateHomeDirectory() {
-    export HOME=/root
-}
+# updateHomeDirectory() {
+#     export HOME=/root
+# }
 
 # Function to initialize the safe directory configuration for Git and fetch origin.
 fetchOrigin() {
@@ -71,7 +71,7 @@ printDeltaPackageDetails() {
 }
 
 # Initiate delta package generation
-updateHomeDirectory
+# updateHomeDirectory
 fetchOrigin
 createDirectories
 executeDeltaValidation

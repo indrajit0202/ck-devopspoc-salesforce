@@ -15,14 +15,20 @@ on:
 
     # Specifying the required secrets for this reusable workflow
     secrets:
-      SECRET_URL_PATH:
+      SF_CLIENT_ID:
+        required: true
+      SF_JWT_PRIVATE_KEY:
+        required: true
+      SF_USERNAME:
+        required: true
+      SF_INSTANCE_URL:
         required: true
       DOCKER_HUB_UN:
-        required: true
-      DOCKER_HUB_PW:
-        required: true
-      PROD_ORG_DOMAIN:
         required: false
+      DOCKER_HUB_PW:
+        required: false
+      PROD_ORG_DOMAIN:
+          required: false
 
 jobs:
   deployment:
@@ -33,25 +39,72 @@ jobs:
     env:
       WORKFLOW_TYPE: ${{ inputs.WORKFLOW_TYPE }}
       AUTH_ORG_ALIAS: ${{ inputs.AUTH_ORG_ALIAS }}
-      SECRET_URL_PATH: ${{ secrets.SECRET_URL_PATH }}
-      PROD_ORG_DOMAIN: ${{ secrets.PROD_ORG_DOMAIN }}
+      CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
+      USERNAME: ${{ secrets.SF_USERNAME }}
+      INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
+      SECURE_FILE: /tmp/server.key
       SFDX_DISABLE_DNS_CHECK: true
       FORCE_SHOW_SPINNER: true
 
     # Docker container load
-    container:
-      image: indrajitck/sfdx-cli-image
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_UN }}
-        password: ${{ secrets.DOCKER_HUB_PW }}
+    # container:
+    #   image: indrajitck/sfdx-cli-image
+    #   credentials:
+    #     username: ${{ secrets.DOCKER_HUB_UN }}
+    #     password: ${{ secrets.DOCKER_HUB_PW }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+     # ── Setup Node ────────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 2
+          node-version: '20'
+
+      - name: Set fixed npm global prefix
+        run: npm config set prefix /usr/local
+
+      - name: Restore SF CLI & plugins cache
+        id: cache-sf
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/bin/sf
+            /usr/local/bin/sfdx
+            /usr/local/lib/node_modules/@salesforce
+            ~/.local/share/sf
+            ~/.sf
+            ~/.config/sf
+            ~/.sfdx
+          key: sf-cli-plugins-v4-${{ runner.os }}
+          restore-keys: |
+            sf-cli-plugins-v4-${{ runner.os }}
+
+      - name: Restore Java cache
+        id: cache-java
+        uses: actions/cache@v4
+        with:
+          path: /usr/lib/jvm/java-17-openjdk-amd64
+          key: java-17-${{ runner.os }}-v1
+
+      # Install dependencies and set up environment for subsequent steps, with caching optimizations for SF CLI and Java
+      - name: Install dependencies
+        env:
+          SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
+          JAVA_CACHE_HIT: ${{ steps.cache-java.outputs.cache-hit }}
+        run: chmod +x ./cicd-utils/scripts-util/install-dependencies.sh && ./cicd-utils/scripts-util/install-dependencies.sh
+        shell: bash
+
+      # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
+      - name: Write JWT Private Key
+        run: |
+          echo "${{ secrets.SF_JWT_PRIVATE_KEY }}" > /tmp/server.key
+          chmod 600 /tmp/server.key
+        shell: bash
 
       # Authenticate with the Org
       - name: Salesforce Authentication

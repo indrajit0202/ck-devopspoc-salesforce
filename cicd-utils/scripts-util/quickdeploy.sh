@@ -9,7 +9,7 @@
 handleDeployment() {
     
     echo "------------------------------------------------------------------------------------------------------------"
-    echo "|                          Deploument into Salesforce org [$AUTH_ORG_ALIAS]                                |"
+    echo "|                          Deployment into Salesforce org [$AUTH_ORG_ALIAS]                                |"
     echo "------------------------------------------------------------------------------------------------------------"
 
     local packageXmlFilePath="changed-sources/package/package.xml"

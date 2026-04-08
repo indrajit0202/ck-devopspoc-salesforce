@@ -60,7 +60,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
-        
+
      # ── Setup Node ────────────────────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -82,9 +82,9 @@ jobs:
             ~/.sf
             ~/.config/sf
             ~/.sfdx
-          key: sf-cli-plugins-v3-${{ runner.os }}
+          key: sf-cli-plugins-v4-${{ runner.os }}
           restore-keys: |
-            sf-cli-plugins-v3-${{ runner.os }}
+            sf-cli-plugins-v4-${{ runner.os }}
 
       - name: Restore Java cache
         id: cache-java
@@ -93,7 +93,7 @@ jobs:
           path: /usr/lib/jvm/java-17-openjdk-amd64
           key: java-17-${{ runner.os }}-v1
 
-      # ── Install dependencies ───────────────────────────────────────────────
+      # Install dependencies and set up environment for subsequent steps, with caching optimizations for SF CLI and Java
       - name: Install dependencies
         env:
           SF_CACHE_HIT: ${{ steps.cache-sf.outputs.cache-hit }}
@@ -121,6 +121,11 @@ jobs:
       # Instantiate static code scan using PMD
       - name: Static Code Analysis (PMD)
         run: chmod +x ./cicd-utils/scripts-util/scanner.sh && ./cicd-utils/scripts-util/scanner.sh
+        shell: bash
+
+      # Static Code Analysis — PMD + ESLint via Code Analyzer v5
+      - name: Static Code Analysis (PMD + ESLint — Code Analyzer v5)
+        run: chmod +x ./cicd-utils/scripts-util/code-scanner.sh && ./cicd-utils/scripts-util/code-scanner.sh
         shell: bash
 
       # Dynamically generate test class list
