@@ -5,7 +5,6 @@ name: Auto Deployment
 on:
   push:
     branches:
-      - "dev"
       - "qa"
       - "uat"
       - "preprod"
@@ -28,43 +27,43 @@ jobs:
       # DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
   # Job to deploy components to the QA environment
-  qa-promote:
-    if: ${{ github.event_name == 'push' && github.ref_name == 'qa' }}
-    name: QA
-    # Utilizing the dynamic yml file for reusability
-    uses: ./.github/workflows/deployment-workflow.yml
-    with:
-      WORKFLOW_TYPE: DEPLOYMENT
-      AUTH_ORG_ALIAS: Qa
-    secrets:
-      SECRET_URL_PATH: ${{ secrets.QA_ORG_AUTH_URL }}
-      DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  # qa-promote:
+  #   if: ${{ github.event_name == 'push' && github.ref_name == 'qa' }}
+  #   name: QA
+  #   # Utilizing the dynamic yml file for reusability
+  #   uses: ./.github/workflows/deployment-workflow.yml
+  #   with:
+  #     WORKFLOW_TYPE: DEPLOYMENT
+  #     AUTH_ORG_ALIAS: Qa
+  #   secrets:
+  #     SECRET_URL_PATH: ${{ secrets.QA_ORG_AUTH_URL }}
+  #     DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #     DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-  # Job to deploy components to the UAT environment
-  uat-promote:
-    if: ${{ github.event_name == 'push' && github.ref_name == 'uat' }}
-    name: UAT
-    # Utilizing the dynamic yml file for reusability
-    uses: ./.github/workflows/deployment-workflow.yml
-    with:
-      WORKFLOW_TYPE: DEPLOYMENT
-      AUTH_ORG_ALIAS: Uat
-    secrets:
-      SECRET_URL_PATH: ${{ secrets.UAT_ORG_AUTH_URL }}
-      DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  # # Job to deploy components to the UAT environment
+  # uat-promote:
+  #   if: ${{ github.event_name == 'push' && github.ref_name == 'uat' }}
+  #   name: UAT
+  #   # Utilizing the dynamic yml file for reusability
+  #   uses: ./.github/workflows/deployment-workflow.yml
+  #   with:
+  #     WORKFLOW_TYPE: DEPLOYMENT
+  #     AUTH_ORG_ALIAS: Uat
+  #   secrets:
+  #     SECRET_URL_PATH: ${{ secrets.UAT_ORG_AUTH_URL }}
+  #     DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #     DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-  # Job to deploy components to the PREPROD environment
-  preprod-promote:
-    if: ${{ github.event_name == 'push' && github.ref_name == 'preprod' }}
-    name: PREPROD
-    # Utilizing the dynamic yml file for reusability
-    uses: ./.github/workflows/deployment-workflow.yml
-    with:
-      WORKFLOW_TYPE: DEPLOYMENT
-      AUTH_ORG_ALIAS: Preprod
-    secrets:
-      SECRET_URL_PATH: ${{ secrets.PREPROD_ORG_AUTH_URL }}
-      DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  # # Job to deploy components to the PREPROD environment
+  # preprod-promote:
+  #   if: ${{ github.event_name == 'push' && github.ref_name == 'preprod' }}
+  #   name: PREPROD
+  #   # Utilizing the dynamic yml file for reusability
+  #   uses: ./.github/workflows/deployment-workflow.yml
+  #   with:
+  #     WORKFLOW_TYPE: DEPLOYMENT
+  #     AUTH_ORG_ALIAS: Preprod
+  #   secrets:
+  #     SECRET_URL_PATH: ${{ secrets.PREPROD_ORG_AUTH_URL }}
+  #     DOCKER_HUB_UN: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #     DOCKER_HUB_PW: ${{ secrets.DOCKER_HUB_PASSWORD }}
