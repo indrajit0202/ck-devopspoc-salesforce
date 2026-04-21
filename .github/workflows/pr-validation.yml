@@ -25,7 +25,7 @@ jobs:
     secrets:
       SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID_1 }}
       SF_JWT_PRIVATE_KEY: ${{ secrets.SF_JWT_PRIVATE_KEY_2 }}
-      SF_USERNAME: ${{ secrets.SF_USERNAME }}
+      SF_USERNAME: ${{ secrets.SF_USERNAME_1 }}
       SF_INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
       DOCKER_HUB_UN: ${{secrets.DOCKER_HUB_USERNAME}}
       DOCKER_HUB_PW: ${{secrets.DOCKER_HUB_PASSWORD}}
