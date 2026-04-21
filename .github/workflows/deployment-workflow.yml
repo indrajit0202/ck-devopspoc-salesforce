@@ -34,6 +34,7 @@ jobs:
   deployment:
     name: ${{ github.event.push.head.ref }}
     runs-on: ubuntu-latest
+    environment: Dev
 
     # Setting some environment variables so that it can be utilized in upcoming shell scripts
     env:
@@ -42,6 +43,7 @@ jobs:
       CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
       USERNAME: ${{ secrets.SF_USERNAME }}
       INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
+      TEST: ${{ vars.TEST}}
       SECURE_FILE: /tmp/server.key
       SFDX_DISABLE_DNS_CHECK: true
       FORCE_SHOW_SPINNER: true
@@ -55,6 +57,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
+      - name: Print vars
+        run: |
+          echo "Test: $TEST"
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
