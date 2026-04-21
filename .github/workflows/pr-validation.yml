@@ -23,8 +23,8 @@ jobs:
       BASE_BRANCH: ${{ github.base_ref }}
     # Secrets are passed to the called workflow to ensure secure handling of sensitive information
     secrets:
-      SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
-      SF_JWT_PRIVATE_KEY: ${{ secrets.SF_JWT_PRIVATE_KEY }}
+      SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID_1 }}
+      SF_JWT_PRIVATE_KEY: ${{ secrets.SF_JWT_PRIVATE_KEY_1 }}
       SF_USERNAME: ${{ secrets.SF_USERNAME }}
       SF_INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
       DOCKER_HUB_UN: ${{secrets.DOCKER_HUB_USERNAME}}
