@@ -11,7 +11,7 @@ public with sharing class ActiveJobPostingHandler {
     /**
     * @description This method will return all the job postings whose positions where the status is open - approved
     * @author Indrajit Pal | 11-09-2024
-    * @return List<Job_Posting__c>
+    * @return List<Job_Posting__c> 
     **/
     @AuraEnabled(cacheable=true)
     public static List<Job_Posting__c> getActiveJobPosting(){
