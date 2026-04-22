@@ -108,15 +108,13 @@ printScanSummary() {
   separator
  
   # Pretty-print each violation
-  jq -r '
+    jq -r '
     .violations[] |
-    "  Engine     : \(.engine)\n" +
-    "  Rule       : \(.rule)\n" +
-    "  Severity   : \(.severity)\n" +
-    "  File       : \(.locations[.primaryLocationIndex].file)\n" +
-    "  Line       : \(.locations[.primaryLocationIndex].startLine)\n" +
-    "  Message    : \(.message)\n" +
-    "---"
+    "  Engine           : \(.engine)\n" +
+    "  ClassName        : \(.locations[.primaryLocationIndex].file | split("/") | last)\n" +
+    "  Rule             : \(.rule)\n" +
+    "  Line Number      : \(.locations[.primaryLocationIndex].startLine)\n" +
+    "  Error Description: \(.message)"
   ' "${reportFile}"
  
   separator
