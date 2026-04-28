@@ -12,6 +12,7 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 readonly REPORT_DIR="pipeline-artifacts"
 readonly REPORT_FILE="${REPORT_DIR}/code-analyzer-results.json"
+readonly REPORT_FILE_HTML="${REPORT_DIR}/code-analyzer-results.html"
 readonly TARGET_PATH="changed-sources/force-app/main"
 readonly CONFIG_FILE="cicd-utils/code-analyzer/code-analyzer.yml"
 
@@ -43,6 +44,7 @@ runCodeAnalyzer() {
       --rule-selector  "${RULE_SELECTOR}"
       --workspace      "${TARGET_PATH}"
       --output-file    "${REPORT_FILE}"
+      --output-file    "${REPORT_FILE_HTML}" 
       --severity-threshold "${SEVERITY_THRESHOLD}"
   )
  
@@ -108,13 +110,15 @@ printScanSummary() {
   separator
  
   # Pretty-print each violation
-    jq -r '
+  jq -r '
     .violations[] |
-    "  Engine           : \(.engine)\n" +
-    "  ClassName        : \(.locations[.primaryLocationIndex].file | split("/") | last)\n" +
-    "  Rule             : \(.rule)\n" +
-    "  Line Number      : \(.locations[.primaryLocationIndex].startLine)\n" +
-    "  Error Description: \(.message)"
+    "  Engine     : \(.engine)\n" +
+    "  Rule       : \(.rule)\n" +
+    "  Severity   : \(.severity)\n" +
+    "  File       : \(.locations[.primaryLocationIndex].file)\n" +
+    "  Line       : \(.locations[.primaryLocationIndex].startLine)\n" +
+    "  Message    : \(.message)\n" +
+    "---"
   ' "${reportFile}"
  
   separator
