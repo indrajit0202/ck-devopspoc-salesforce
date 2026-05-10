@@ -17,7 +17,7 @@ readonly TARGET_PATH="changed-sources/force-app/main"
 readonly CONFIG_FILE="cicd-utils/code-analyzer/code-analyzer.yml"
 
 # Engines to run (pmd and eslint only — no retire-js, flow, cpd, sfge, regex)
-readonly RULE_SELECTOR="pmd,eslint"
+readonly RULE_SELECTOR="pmd,eslint,flow"
 
 readonly SEVERITY_THRESHOLD=1
 

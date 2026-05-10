@@ -5,6 +5,8 @@
 # =============================================================================
 
 
+# ignores:
+#   files: []
 ignores:
   files:
     - "**/TriggerHandlerTest.cls"
@@ -23,17 +25,16 @@ engines:
         - ".page"
         - ".component"
     disable_engine: false 
-
   eslint:
-    # Disable engines you are NOT using so you don't see "engine not found" warnings
     disable_engine: false   # keep ESLint ON
-
-  # Explicitly disable all other engines so only pmd + eslint run
+  flow:
+    disable_engine: false   # keep Flow ON
+    python_command: python3
+  # Disable engines you are NOT using so you don't see "engine not found" warnings
+  # Explicitly disable all other engines so only pmd, eslint and flow run
   retire-js:
     disable_engine: true
   cpd:
-    disable_engine: true
-  flow:
     disable_engine: true
   regex:
     disable_engine: true
