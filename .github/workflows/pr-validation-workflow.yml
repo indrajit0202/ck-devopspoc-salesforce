@@ -66,6 +66,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          
+      # Check Default Python Version
+      - name: Check Python Version
+        run: python3 --version
 
       - name: Set fixed npm global prefix
         run: npm config set prefix /usr/local
