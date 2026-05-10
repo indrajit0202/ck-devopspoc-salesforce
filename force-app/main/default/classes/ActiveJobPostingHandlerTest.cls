@@ -2,7 +2,7 @@
  * @description       : Test class for ActiveJobPostingHandler.
  * @author            : Indrajit Pal
  * @last modified on  : 12-26-2024
- * @last modified by  : Indrajit Pal 
+ * @last modified by  : Indrajit Pal
 **/
 @isTest
 public with sharing class ActiveJobPostingHandlerTest {
