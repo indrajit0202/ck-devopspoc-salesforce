@@ -13,7 +13,7 @@ public with sharing class ActiveJobPostingHandler {
     * @author Indrajit Pal | 11-09-2024 
     * @return List<Job_Posting__c> 
     **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=true) 
     public static List<Job_Posting__c> getActiveJobPosting(){
         try {
             List<Job_Posting__c> activeJobPostingList = [SELECT Id, 
