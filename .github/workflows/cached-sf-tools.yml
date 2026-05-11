@@ -60,7 +60,7 @@ jobs:
             /usr/local/bin/sf
             /home/runner/.local/share/sf
           # Unique cache key for invalidation when environment or name changes
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: sf-cli-plugins-v4-${{ runner.os }}
 
       # Setup Node.js if cache was not hit or force fresh cache is requested
       - name: Setup Node
