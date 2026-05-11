@@ -1,0 +1,80 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Workflow  : Cache Salesforce Tools
+# Purpose   : Installs and caches Salesforce CLI and required plugins so that
+#             subsequent workflows can restore from cache instead of reinstalling
+# Packages  :
+#   - @salesforce/cli        → Salesforce CLI (sf)
+#   - sfdx-git-delta@6.31.0  → Delta deployment plugin
+#   - sfdmu@5.6.4            → Salesforce Data Move Utility
+#   - code-analyzer@5.11.1   → Salesforce Code Analyzer for static analysis
+# Trigger   : Manual (workflow_dispatch) or Called by other workflows (workflow_call)
+# ─────────────────────────────────────────────────────────────────────────────
+name: Cache Salesforce Tools
+
+on:
+  # Trigger manually via GitHub UI
+  workflow_dispatch:
+    inputs:
+      FORCE_FRESH_CACHE:
+        description: "Force reinstall even if cache exists?"
+        type: choice
+        required: true
+        default: "false"
+        options:
+          - "false"
+          - "true"
+
+  # Called by other workflows
+  workflow_call:
+    inputs:
+      FORCE_FRESH_CACHE:
+        description: "Force reinstall even if cache exists?"
+        type: string
+        required: true
+        default: "false"
+
+# Restrict the GITHUB_TOKEN to read-only access
+permissions:
+  contents: read
+
+jobs:
+  cache-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code (required to use cache scoped to repo)
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # Cache Salesforce CLI and related tools
+      - name: Restore SF CLI and Plugins from cache
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # Define the folders to be cached
+          path: |
+            /usr/local/lib/node_modules/@salesforce
+            /usr/local/bin/sf
+            /home/runner/.local/share/sf
+          # Unique cache key for invalidation when environment or name changes
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      # Setup Node.js if cache was not hit or force fresh cache is requested
+      - name: Setup Node
+        if: steps.cache-npm.outputs.cache-hit != 'true' || inputs.FORCE_FRESH_CACHE == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ">=20"
+
+      # Install Salesforce CLI and Plugins only if cache was not hit or force fresh cache is requested
+      - name: Install Salesforce CLI and Plugins
+        if: steps.cache-npm.outputs.cache-hit != 'true' || inputs.FORCE_FRESH_CACHE == 'true'
+        shell: bash
+        run: |
+          sudo npm install @salesforce/cli --global
+          echo 'y' | sf plugins install sfdx-git-delta@6.31.0
+          sf plugins install sfdmu@5.6.4
+          sf plugins install code-analyzer@5.11.1
