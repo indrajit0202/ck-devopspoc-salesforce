@@ -4,7 +4,7 @@
  * @last modified on  : 04-07-2026
  * @last modified by  : Indrajit Pal
 **/
-public with sharing class ActiveJobPostingHandler123 {
+public with sharing class ActiveJobPostingHandler {
     public static final string NO_ACTIVE_JOB_POSTING_FOUND = 'No Active Job Postings Found'; 
     public static final string NO_JOB_POSTINGS_FOUND = 'No Job Postings Found for this Department'; 
 
