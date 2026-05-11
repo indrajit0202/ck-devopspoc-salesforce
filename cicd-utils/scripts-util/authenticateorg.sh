@@ -19,15 +19,42 @@
 # loginToSalesforceOrg
 
 
-authorizeorgjwt(){
-    local Cyan='\033[1;36m'
-    local Red='\033[1;31m'
-    echo -e "${Cyan}------------------------------------------------------------------------------------------------------------"
-    echo -e "${Cyan}|                     Authenticate with Salesforce org [$AUTH_ORG_ALIAS]                                    |"
-    echo -e "${Cyan}------------------------------------------------------------------------------------------------------------"
+# authorizeorgjwt(){
+#     local Cyan='\033[1;36m'
+#     local Red='\033[1;31m'
+#     echo -e "${Cyan}------------------------------------------------------------------------------------------------------------"
+#     echo -e "${Cyan}|                     Authenticate with Salesforce org [$AUTH_ORG_ALIAS]                                    |"
+#     echo -e "${Cyan}------------------------------------------------------------------------------------------------------------"
 
-    # Authenticating org using JWT
-    sf org login jwt --client-id "${CLIENT_ID}" --jwt-key-file "${SECURE_FILE}" --username "${USERNAME}" --alias "${AUTH_ORG_ALIAS}" --instance-url "${INSTANCE_URL}"
+#     # Authenticating org using JWT
+#     sf org login jwt --client-id "${CLIENT_ID}" --jwt-key-file "${SECURE_FILE}" --username "${USERNAME}" --alias "${AUTH_ORG_ALIAS}" --instance-url "${INSTANCE_URL}"
+# }
+
+# # Initiate Authorization
+# authorizeorgjwt
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Script    : authorizeorgjwt.sh
+# Purpose   : Authenticate with Salesforce Org using JWT
+# ─────────────────────────────────────────────────────────────────────────────
+
+source "$(dirname "$0")/logger.sh"
+
+authorizeorgjwt() {
+    echo "------------------------------------------------------------------------------------------------------------"
+    echo "|                     Authenticate with Salesforce org [$AUTH_ORG_ALIAS]                                    |"
+    echo "------------------------------------------------------------------------------------------------------------"
+
+    run_cmd \
+        "Successfully authenticated with Salesforce Org [$AUTH_ORG_ALIAS]" \
+        "Authentication failed for Salesforce Org [$AUTH_ORG_ALIAS]" \
+        sf org login jwt \
+            --client-id "${CLIENT_ID}" \
+            --jwt-key-file "${SECURE_FILE}" \
+            --username "${USERNAME}" \
+            --alias "${AUTH_ORG_ALIAS}" \
+            --instance-url "${INSTANCE_URL}"
 }
 
 # Initiate Authorization

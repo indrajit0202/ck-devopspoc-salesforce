@@ -21,6 +21,7 @@ jobs:
       WORKFLOW_TYPE: PRVALIDATION
       AUTH_ORG_ALIAS: CI
       BASE_BRANCH: ${{ github.base_ref }}
+      DEBUG: ${{ vars.DEBUG || 'false' }}
     # Secrets are passed to the called workflow to ensure secure handling of sensitive information
     secrets:
       SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}

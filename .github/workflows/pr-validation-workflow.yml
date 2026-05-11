@@ -15,6 +15,10 @@ on:
       BASE_BRANCH:
         required: true
         type: string
+      DEBUG:               
+        required: false
+        type: string
+        default: "false"
 
     # Specifying the required secrets for this reusable workflow
     secrets:
@@ -47,6 +51,7 @@ jobs:
       SECURE_FILE: /tmp/server.key
       SFDX_DISABLE_DNS_CHECK: true
       FORCE_SHOW_SPINNER: true
+      DEBUG: ${{ inputs.DEBUG }}
 
     # Docker container load
     # container:
