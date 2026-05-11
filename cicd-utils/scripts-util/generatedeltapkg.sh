@@ -10,6 +10,8 @@
 #     export HOME=/root
 # }
 
+source "$(dirname "$0")/logger.sh"
+
 # Function to initialize the safe directory configuration for Git and fetch origin.
 fetchOrigin() {
     # Add a global configuration for the safe directory.
