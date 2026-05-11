@@ -4,6 +4,9 @@
 # Date        : 07/04/2026
 # --------------------------------------------------------------------------------------------------------------
 
+export SF_HIDE_RELEASE_NOTES=true
+export SF_DISABLE_AUTOUPDATE=true
+
 set -e  # exit immediately if any command fails
 
 # ── Salesforce CLI & plugins ──
