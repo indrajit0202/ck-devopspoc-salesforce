@@ -4,9 +4,10 @@
 # Date        : 08/04/2026
 # --------------------------------------------------------------------------------------------------------------
 
+source "$(dirname "$0")/logger.sh"
+
 # Exit immediately if any command fails, treat unset variables as an error, and ensure that errors in pipelines are not masked
 set -euo pipefail
-
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -59,7 +60,11 @@ runCodeAnalyzer() {
  
   # Execute — capture exit code without letting set -e kill the script
   local exitCode=0
-  "${cmd[@]}" || exitCode=$?
+  if [ "$DEBUG" = "true" ]; then
+      "${cmd[@]}" || exitCode=$?
+  else
+      "${cmd[@]}" > /dev/null 2>&1 || exitCode=$?
+  fi
  
   separator
   return ${exitCode}
