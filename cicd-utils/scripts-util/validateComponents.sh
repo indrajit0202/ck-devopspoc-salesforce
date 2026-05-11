@@ -18,6 +18,7 @@ performDeltaCheckOnlyDeployment() {
     # Checking if any metadata changes are in package.xml
     if grep -q '<types>' $packageXmlFilePath; then
         # Initiating async deployment.
+        # TODO: Add fallback when test classes file is empty
         if grep -q '<name>ApexClass</name>' $packageXmlFilePath; then
             # Initiating async deployment with RunSpecifiedTests.
             sf project deploy start -o $AUTH_ORG_ALIAS -x $packageXmlFilePath -l RunSpecifiedTests -t $(cat $runTestClassesFilePath) --verbose --dry-run --async | tee $deployOrgFilePath
