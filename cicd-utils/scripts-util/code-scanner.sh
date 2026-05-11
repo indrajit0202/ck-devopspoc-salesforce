@@ -20,7 +20,7 @@ readonly CONFIG_FILE="cicd-utils/code-analyzer/code-analyzer.yml"
 # Engines to run (pmd and eslint only — no retire-js, flow, cpd, sfge, regex)
 readonly RULE_SELECTOR="pmd,eslint,flow"
 
-readonly SEVERITY_THRESHOLD=1
+readonly SEVERITY_THRESHOLD=2
 
 # ---------------------------------------------------------------------------
 # Helpers
