@@ -12,16 +12,16 @@ if [ "$SF_CACHE_HIT" != "true" ]; then
   npm install @salesforce/cli@latest -g
 
   echo ">>> Installing sfdx-git-delta..."
-  echo 'y' | /usr/local/bin/sf plugins install sfdx-git-delta
+  echo 'y' | /usr/local/bin/sf plugins install sfdx-git-delta@6.31.0
 
   echo ">>> Installing SFDMU..."
-  /usr/local/bin/sf plugins install sfdmu
+  /usr/local/bin/sf plugins install sfdmu@5.6.4
 
   echo ">>> Installing SFDX Scanner..."
   /usr/local/bin/sf plugins install @salesforce/sfdx-scanner
 
   echo ">>> Installing Salesforce Code Analyzer..."
-  /usr/local/bin/sf plugins install code-analyzer@latest
+  /usr/local/bin/sf plugins install code-analyzer@5.11.1
 
   echo ">>> Installing Skuid SFDX..."
   echo 'y' | /usr/local/bin/sf plugins install skuid-sfdx

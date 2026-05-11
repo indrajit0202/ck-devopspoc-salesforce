@@ -113,6 +113,23 @@ jobs:
         run: chmod +x ./cicd-utils/scripts-util/install-dependencies.sh && ./cicd-utils/scripts-util/install-dependencies.sh
         shell: bash
 
+    # Print installed versions
+      - name: Verify installed versions
+        run: |
+          echo "===== Salesforce CLI Version ====="
+          sf --version
+
+          echo ""
+          echo "===== Installed Plugins ====="
+          sf plugins
+
+          echo ""
+          echo "===== Verify Specific Plugin Versions ====="
+          sf plugins | grep sfdx-git-delta
+          sf plugins | grep sfdmu
+          sf plugins | grep code-analyzer
+        shell: bash
+
       # Reads the JWT private key from the GitHub secret and writes it to a temporary file with appropriate permissions
       - name: Write JWT Private Key
         run: |
