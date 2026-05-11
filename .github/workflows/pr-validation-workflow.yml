@@ -115,7 +115,13 @@ jobs:
 
     # Print installed versions
       - name: Verify installed versions
+        env:
+          SF_HIDE_RELEASE_NOTES: true
+          SF_DISABLE_AUTOUPDATE: true
         run: |
+          export SF_HIDE_RELEASE_NOTES=true
+          export SF_DISABLE_AUTOUPDATE=true
+
           echo "===== Salesforce CLI Version ====="
           sf --version
 
