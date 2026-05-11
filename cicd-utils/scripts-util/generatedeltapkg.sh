@@ -50,7 +50,10 @@ executeDeltaValidation() {
     fi
     
     # Execute sf sgd:source:delta command
-    sf sgd:source:delta --to HEAD --from "$from" --output-dir $changedSourceFolderPath -i $sgdIgnoreFilePath --generate-delta
+    # sf sgd:source:delta --to HEAD --from "$from" --output-dir $changedSourceFolderPath -i $sgdIgnoreFilePath --generate-delta
+    
+    # Single line — identical result
+    run_cmd "Delta package generated successfully" "Failed to generate delta package" sf sgd:source:delta --to HEAD --from "$from" --output "$changedSourceFolderPath" -i "$sgdIgnoreFilePath" --generate-delta
 }
 
 # Function to print the output to the console
