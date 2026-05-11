@@ -1,6 +1,8 @@
 # Pull request validation initiation
 name: Pull Request (PR) Validation
 
+permissions:
+  contents: read
 # Controls when the action will run.
 on:
   # Trigger the PR validation on pull request with master branch

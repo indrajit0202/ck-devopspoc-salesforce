@@ -1,6 +1,9 @@
 # This GitHub Actions workflow validates pull requests by executing a series of tasks to ensure code quality and compatibility with Salesforce Orgs.
 name: pr-validation-workflow
 
+permissions:
+  contents: read
+  
 on:
   # This workflow contains a single job called "pr-validation"
   workflow_call:
