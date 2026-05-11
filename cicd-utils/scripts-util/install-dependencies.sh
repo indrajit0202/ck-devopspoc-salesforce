@@ -9,7 +9,7 @@ set -e  # exit immediately if any command fails
 # ── Salesforce CLI & plugins ──
 if [ "$SF_CACHE_HIT" != "true" ]; then
   echo ">>> Installing Salesforce CLI..."
-  npm install @salesforce/cli@latest -g
+  npm install @salesforce/cli@2.130.9 -g
 
   echo ">>> Installing sfdx-git-delta..."
   echo 'y' | /usr/local/bin/sf plugins install sfdx-git-delta@6.31.0
