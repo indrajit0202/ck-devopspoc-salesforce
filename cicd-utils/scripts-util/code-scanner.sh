@@ -22,6 +22,8 @@ readonly RULE_SELECTOR="pmd,eslint,flow"
 
 readonly SEVERITY_THRESHOLD=2
 
+readonly SEVERITY_THRESHOLD=1
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
